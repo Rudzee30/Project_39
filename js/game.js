@@ -55,6 +55,10 @@ class Game{
           textSize(25);
           text(allPlayers[plr].name ,x-25,y+25);
         }
+      textSize(25);
+      fill("White");
+      text("Player 1 : "+allPlayers.player1.score,50,50);
+      text("Player 2 : "+allPlayers.player2.score,50,100);
       }
       if (keyIsDown(RIGHT_ARROW) && player.index !== null) {
         player.distance -= 10
@@ -82,23 +86,20 @@ class Game{
         }
         fruitGroup.add(fruits);
       }
-      if (player1.isTouching(fruits)) {
-        fruits.destroy();
-        player1.score+=1;
-        player.update();
+      if(player.index!=null){
+        for(var i=0;i<fruitGroup.length;i++){
+          if(fruitGroup.get(i).isTouching(players)){
+            fruitGroup.get(i).destroy();
+            player.score+=1;
+            player.update();
+          }
+        }
       }
-      if (player2.isTouching(fruits)) {
-        fruits.destroy();
-        player1.score+=1;
-        player.update();
-      }
-      if(player2.score===20){
-        gameState===2;
+      if(player.score===20){
+        gameState=2;
         text("Player 2 Wins",width/3,height/2);
       }
-      if(player1.score===20){
-        gameState===2;
-      }
+      
     }
 
     end(){
